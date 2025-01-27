@@ -7,7 +7,7 @@ name = input("What's your name?\n")
 list_of_platitudes = [
     "How nice you are",
     "Nice to meet you",
-    "Good Morning"
+    "Good"
 ]
 # Randomly choose one of the phrases from the list and print it with the user's name
 print(str(random.choice(list_of_platitudes)) + " " + name + ".")
