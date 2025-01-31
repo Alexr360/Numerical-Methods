@@ -1,16 +1,24 @@
-temperature = input("What is the temperature you would like to convert?\n").lower()
+temperature = input("What is the temperature you would like to convert?\n").lower() + "|"
 
-if "f" in temperature or "fahrenheit" in temperature:
-    fahrenheit = str(round(float(temperature.replace("f",""))                         , 3))
-elif "r" in temperature or "rankine" in temperature:
-    fahrenheit = str(round(float(temperature.replace("r","")) - 459.67                , 3))
-elif "c" in temperature or "celcius" in temperature:
-    fahrenheit = str(round(float(temperature.replace("c","")) * (9/5) + 32            , 3))
-elif "k" in temperature or "kelvin" in temperature:
-    fahrenheit = str(round((float(temperature.replace("k","")) - 273.15) * (9/5) + 32 , 3))
+if (any(sub in temperature for sub in ["f|","c|","r|","k|","fahrenheit|","celcius|","rankine|","kelvin|"])):
 
-rankine = str(round(float(fahrenheit) + 459.67          , 3))
-celcius = str(round((float(fahrenheit) - 32) * (5/9)    , 3))
-kelvin  = str(round((float(celcius) + 273.15)           , 3))
+    temperatureNumber = float(''.join(i for i in temperature if i.isdigit() or i == '.'))
+    
+    if "f" in temperature:
+        fahrenheit = temperatureNumber
+    elif "r" in temperature:
+        fahrenheit = temperatureNumber - 459.67
+    elif "c" in temperature:
+        fahrenheit = temperatureNumber * 9 / 5 + 32
+    elif "k" in temperature:
+        fahrenheit = (temperatureNumber - 273.15) * 9 / 5 + 32
 
-print("Converted Units:\n Fahrenheit: " + fahrenheit + "\n Rankine  " + rankine + "\n Celcius  " + celcius + "\n Kelvin  " + kelvin + "")
+    rankine     = round(fahrenheit + 459.67         , 3)
+    celcius     = round((fahrenheit - 32) * (5/9)   , 3)
+    kelvin      = round(celcius + 273.15            , 3)
+    fahrenheit  = round(fahrenheit                  , 3)
+
+    print(f"Converted Units:\n Fahrenheit: {fahrenheit}\n Rankine  {rankine}\n Celcius  {celcius}\n Kelvin  {kelvin}")
+    
+else:
+    print("Invalid Input Please Try Again.")
