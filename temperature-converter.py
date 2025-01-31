@@ -2,7 +2,7 @@ temperature = input("What is the temperature you would like to convert?\n").lowe
 
 if (any(sub in temperature for sub in ["f|","c|","r|","k|","fahrenheit|","celcius|","rankine|","kelvin|"])):
 
-    temperatureNumber = float(''.join(i for i in temperature if i.isdigit() or i == '.'))
+    temperatureNumber = float(''.join(i for i in temperature if i.isdigit() or i == '.' or i == '-'))
     
     if "f" in temperature:
         fahrenheit = temperatureNumber
