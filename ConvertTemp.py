@@ -1,0 +1,21 @@
+def ConvertTemperature(temperature:str):
+    temperature = temperature.lower() + "|"
+    if (any(sub in temperature for sub in ["f|","c|","r|","k|","fahrenheit|","celcius|","rankine|","kelvin|"])):
+
+        temperatureNumber = float(''.join(i for i in temperature if i.isdigit() or i == '.' or i == '-'))
+        
+        if "f" in temperature:
+            fahrenheit = temperatureNumber
+        elif "r" in temperature:
+            fahrenheit = temperatureNumber - 459.67
+        elif "c" in temperature:
+            fahrenheit = temperatureNumber * 9 / 5 + 32
+        elif "k" in temperature:
+            fahrenheit = (temperatureNumber - 273.15) * 9 / 5 + 32
+
+        rankine     = round(fahrenheit + 459.67         , 3)
+        celcius     = round((fahrenheit - 32) * (5/9)   , 3)
+        kelvin      = round(celcius + 273.15            , 3)
+        fahrenheit  = round(fahrenheit                  , 3)
+
+        return rankine, celcius, kelvin, fahrenheit
