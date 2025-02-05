@@ -13,9 +13,9 @@ def ConvertTemperature(temperature:str):
         elif "k" in temperature:
             fahrenheit = (temperatureNumber - 273.15) * 9 / 5 + 32
 
-        rankine     = round(fahrenheit + 459.67         , 3)
-        celcius     = round((fahrenheit - 32) * (5/9)   , 3)
-        kelvin      = round(celcius + 273.15            , 3)
-        fahrenheit  = round(fahrenheit                  , 3)
+        rankine     = fahrenheit + 459.67
+        celcius     = (fahrenheit - 32) * (5/9)
+        kelvin      = celcius + 273.15
+        fahrenheit  = fahrenheit
 
         return rankine, celcius, kelvin, fahrenheit
