@@ -1,4 +1,4 @@
-#Homework 1, Alexander Watts, 2/3/25
+#Homework 1, Alexander Watts, 2/3/25 
 import math
 import time
 
