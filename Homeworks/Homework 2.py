@@ -1,107 +1,151 @@
-# Homework 3, Alexander Watts, 2/11/25 
-import time
+#Homework 2, Alexander Watts, 2/3/25 
 import math
+import time
 
-# Problem 1: Projectile Motion (Throwing an Object)
-# This function calculates the range of a projectile given initial velocity and launch angle.
-def projectile_range(v0: float, theta: float):
-    g = 9.81  # Acceleration due to gravity (m/s^2)
-    radians = math.radians(theta)  # Convert angle to radians
-    R = (v0 ** 2) * math.sin(2 * radians) / g  # Calculate range
-    return R
-
-# Problem 2: Efficiency of a Heat Engine
-# This function calculates the efficiency of a heat engine given hot and cold reservoir temperatures.
-def calculate_efficiency(temperature_hot: float, temperature_cold: float):
-    if temperature_hot <= 0 or temperature_cold <= 0:
-        raise ValueError("Input temperatures must be positive numbers.")
+#Question 1: Function to calculate the surface area and volume of a cylinder
+def calculate_cylinder_properties(r:float, h:float):
+    # Calculate surface area and volume
+    surface_area = 2 * math.pi * r * h + 2 * math.pi * r**2
+    volume = math.pi * r**2 * h
     
-    efficiency = 1 - (temperature_hot / temperature_cold)  # Calculate efficiency
-    return efficiency
+    return surface_area, volume
 
-# Problem 3: Temperature Conversion
-# This function converts a given temperature to Fahrenheit, Rankine, Celsius, and Kelvin.
-def ConvertTemperature(temperature: str):
-    temperature = temperature.lower() + "|"  # Normalize input and add delimiter
-    if (any(sub in temperature for sub in ["f|", "c|", "r|", "k|", "fahrenheit|", "celcius|", "rankine|", "kelvin|"])):
-        temperatureNumber = float(''.join(i for i in temperature if i.isdigit() or i == '.' or i == '-'))  # Extract numeric value
-        
-        # Convert to Fahrenheit
-        if "f" in temperature:
-            fahrenheit = temperatureNumber
-        elif "r" in temperature:
-            fahrenheit = temperatureNumber - 459.67
-        elif "c" in temperature:
-            fahrenheit = temperatureNumber * 9 / 5 + 32
-        elif "k" in temperature:
-            fahrenheit = (temperatureNumber - 273.15) * 9 / 5 + 32
 
-        # Convert to other units
-        rankine = fahrenheit + 459.67
-        celcius = (fahrenheit - 32) * (5/9)
-        kelvin = celcius + 273.15
-        fahrenheit = fahrenheit
+#Question 2: Function to calculate the maximum deflection of a beam
+def calculate_max_deflection(F:float, L:float, E:float, I:float):
+    return (F * L**3) / (48 * E * I)
 
-        return rankine, celcius, kelvin, fahrenheit
 
-# Problem 4: Summation of a Series
-# This function calculates the summation of the harmonic series up to the nth term.
-def summation_of_series(n: int):
-    if n <= 0:
-        return 0
-    series_sum = 0
-    for i in range(1, n+1):
-        series_sum += 1 / i  # Add the reciprocal of each term
-    return series_sum
+#Question 3: Function to convert speed from m/s to km/h and mph
+def convert_speed(speed_mps: float):
+    # Conversion factors
+    MPS_TO_KMPH = 3.6  # 1 m/s = 3.6 km/h
+    MPS_TO_MPH = 2.23694  # 1 m/s = 2.23694 mph
+    
+    # Convert to km/h and mph
+    speed_kmph = speed_mps * MPS_TO_KMPH
+    speed_mph = speed_mps * MPS_TO_MPH
+
+    return speed_kmph, speed_mph
+
+
+#Question 4: Function to solve a quadratic equation
+def solve_quadratic(a: float, b: float, c: float):
+    # Print the quadratic equation
+    print(f"The quadratic equation is: {a}x^2 + {b}x + {c} = 0")
+    
+    # Calculate the discriminant
+    discriminant = b**2 - 4*a*c
+    
+    # Check the number of roots and compute them
+    if discriminant > 0:
+        root1 = (-b + math.sqrt(discriminant)) / (2*a)
+        root2 = (-b - math.sqrt(discriminant)) / (2*a)
+        print(f"The equation has two real roots: {root1} and {root2}")
+        return root1, root2
+    elif discriminant == 0:
+        root = -b / (2*a)
+        print(f"The equation has one real root: {root}")
+        return root,
+    else:
+        real_part = -b / (2*a)
+        imaginary_part = math.sqrt(abs(discriminant)) / (2*a)
+        print(f"The equation has complex roots: {real_part} ± {imaginary_part}i")
+        return real_part, imaginary_part
+
+
+#Question 5: Function to classify flow based on Reynolds number
+def classify_flow(density: float, viscosity: float, diameter: float, velocity: float):
+    # Compute Reynolds number
+    Re = (density * velocity * diameter) / viscosity
+
+    # Classify the flow
+    if Re < 2000:
+        flow_type = "Laminar Flow"
+    elif 2000 <= Re <= 4000:
+        flow_type = "Transitional Flow"
+    else:
+        flow_type = "Turbulent Flow"
+
+    return Re, flow_type
+
+
+#Question 6: Function to calculate gear ratio and classify efficiency
+def gear_ratio_efficiency(input_teeth: int, output_teeth: int):
+    # Compute gear ratio
+    gear_ratio = output_teeth / input_teeth
+
+    # Classify efficiency
+    if gear_ratio < 3:
+        efficiency = "High Efficiency"
+    elif 3 <= gear_ratio <= 5:
+        efficiency = "Moderate Efficiency"
+    else:
+        efficiency = "Low Efficiency"
+
+    return gear_ratio, efficiency
 
 # Main function to run the program
 while True:
-    # Display menu
-    print("┌──────────────────────────────────────────────┐")
-    print("│ Select a function to run:                    │")
-    print("├───┬──────────────────────────────────────────┤")
-    print("│ 1 │ Projectile Motion (Throwing an Object)   │")
-    print("│ 2 │ Efficiency of a Heat Engine              │")
-    print("│ 3 │ Temperature Conversion                   │")
-    print("│ 4 │ Summation of a Series                    │")
-    print("│ 5 │ Exit                                     │")
-    print("└───┴──────────────────────────────────────────┘")
+    time.sleep(2)
+
+    # Display menu options
+    print("\nSelect a function to run:")
+    print("1. Calculate Cylinder Properties")
+    print("2. Calculate Maximum Deflection")
+    print("3. Convert Speed")
+    print("4. Solve Quadratic Equation")
+    print("5. Classify Flow")
+    print("6. Gear Ratio Efficiency")
+    print("7. Exit")
     
-    choice = input("Enter your choice (1-5): ")
+    choice = input("Enter your choice (1-7): ")
 
     if choice == '1':
-        # Get inputs and calculate projectile range
-        v0 = int(input("Inital Velocity (m/s): "))
-        theta = int(input("Launch Angle (Degrees): "))
-        print(f"Projectile Range: {projectile_range(v0, theta):.2f}")
-        time.sleep(2)
+        # Get input for cylinder properties calculation
+        r = float(input("Enter the radius of the cylinder: "))
+        h = float(input("Enter the height of the cylinder: "))
+        surface_area, volume = calculate_cylinder_properties(r, h)
+        print(f"Surface Area: {surface_area:.2f}")
+        print(f"Volume: {volume:.2f}")
     elif choice == '2':
-        # Get inputs and calculate heat engine efficiency
-        temperature_hot = float(input("Temperature Hot: "))
-        temperature_cold = float(input("Temperature Cold: "))
-        efficiency = calculate_efficiency(temperature_hot, temperature_cold)
-        print(f"Efficiency of the heat engine: {efficiency:.2f}")
-        time.sleep(2)
+        # Get input for maximum deflection calculation
+        F = float(input("Enter the applied force (N): "))
+        L = float(input("Enter the beam length (m): "))
+        E = float(input("Enter the modulus of elasticity (Pa): "))
+        I = float(input("Enter the moment of inertia (m^4): "))
+        delta_max = calculate_max_deflection(F, L, E, I)
+        print(f"Maximum Deflection: {delta_max:.6f} meters")
     elif choice == '3':
-        # Convert temperature and display results
-        while True:
-            temperature = str(input("What is the temperature you would like to convert? (Q to quit)\n"))
-            if 'q' in temperature.lower():
-                break
-            elif temperature == '' or temperature.isdigit() or not any(char.isdigit() for char in temperature):
-                print("Please enter a temperature to convert.")
-            else:
-                rankine, celcius, kelvin, fahrenheit = ConvertTemperature(temperature)
-                print(f"Converted Units:\n Fahrenheit: {fahrenheit:.2f}\n Rankine:    {rankine:.2f}\n Celcius:    {celcius:.2f}\n Kelvin:     {kelvin:.2f}")
-        time.sleep(2)
+        # Get input for speed conversion
+        speed_mps = float(input("Enter speed in meters per second (m/s): "))
+        speed_kmph, speed_mph = convert_speed(speed_mps)
+        print(f"Speed in kilometers per hour: {speed_kmph:.2f} km/h")
+        print(f"Speed in miles per hour: {speed_mph:.2f} mph")
     elif choice == '4':
-        # Get input and calculate summation of series
-        n = int(input("How many itterations: "))
-        print(f"The sum of the first {n} terms of the series is: {summation_of_series(n):.3f}")
-        time.sleep(2)
+        # Get input for solving quadratic equation
+        a = float(input("Enter coefficient a: "))
+        b = float(input("Enter coefficient b: "))
+        c = float(input("Enter coefficient c: "))
+        solve_quadratic(a, b, c)
     elif choice == '5':
+        # Get input for flow classification
+        density = float(input("Enter the fluid density (kg/m³): "))
+        viscosity = float(input("Enter the dynamic viscosity (Pa·s or N·s/m²): "))
+        diameter = float(input("Enter the pipe diameter (m): "))
+        velocity = float(input("Enter the fluid velocity (m/s): "))
+        Re, flow_type = classify_flow(density, viscosity, diameter, velocity)
+        print(f"Reynolds Number: {Re:.2f}")
+        print(f"Flow Type: {flow_type}")
+    elif choice == '6':
+        # Get input for gear ratio efficiency calculation
+        input_teeth = int(input("Enter the number of teeth on the input gear: "))
+        output_teeth = int(input("Enter the number of teeth on the output gear: "))
+        gear_ratio, efficiency = gear_ratio_efficiency(input_teeth, output_teeth)
+        print(f"Gear Ratio: {gear_ratio:.2f}")
+        print(f"Efficiency Level: {efficiency}")
+    elif choice == '7':
         # Exit the program
         break
     else:
         print("Invalid choice. Please try again.")
-        time.sleep(1)
