@@ -5,11 +5,9 @@ def beam_deflection():
     e = float(input("Enter modulus of elasticity (Pa): "))
     i = float(input("Enter moment of inertia (m^4): "))
 
-
     if x < l:
         delta = (f * x**2 * (3*l - x)) / (6 * e * i)
         return delta
-
 
 while True:
     delta = beam_deflection()
