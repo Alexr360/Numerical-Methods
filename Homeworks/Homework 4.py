@@ -56,12 +56,24 @@ def structural_analysis():
     return U
 
 # Problem 5: Data Analysis of Temperature Measurements
+TC = np.array([23.5, 24.1, 22.8, 25.0, 23.9, 24.5, 22.7, 24.8, 23.6, 25.2])
+
+def data_analysis_temperature_measurements(TC):
+    mean = np.mean(TC)
+    standard_deviation = np.std(TC)
+    TF = (9/5) * TC + 32
+    MaxF = TF.max()
+    MinF = TF.min()
+    MaxC = TC.max()
+    MinC = TC.min()
+    return mean, standard_deviation, TF, MaxF, MinF, MaxC, MinC
+
 
 # Main function to run the program
 while True:
     # Display menu
     print("┌──────────────────────────────────────────────────────┐")
-    print("│ Select a function to run:                            │")
+    print("│ Select one of the following functions to run:        │")
     print("├───┬──────────────────────────────────────────────────┤")
     print("│ 1 │ For Loop - Beam Deflection Calculation           │")
     print("│ 2 │ While Loop - Convergence of a Numerical Solution │")
@@ -72,6 +84,8 @@ while True:
     print("└───┴──────────────────────────────────────────────────┘")
     
     choice = input("Enter your choice (1-5): ")
+
+    print("\n")
 
     if choice == '1':
         # Input from user
@@ -87,7 +101,7 @@ while True:
         print("Deflection at 10 equally spaced points along the beam:")
         for x, y in deflection:
             print(f"x = {x:.2f} m, y = {y:.6f} m")
-        time.sleep(2)
+        input("┌──────────────────────────────────────────────┐\n│ Press [Enter] when you are ready to continue │\n└──────────────────────────────────────────────┘")
     elif choice == '2':
         # Input from user
         T0 = float(input("Enter the initial temperature (T0): "))
@@ -99,7 +113,7 @@ while True:
 
         # Output the number of iterations
         print(f"The number of iterations needed: {iterations}")
-        time.sleep(2)
+        input("┌──────────────────────────────────────────────┐\n│ Press [Enter] when you are ready to continue │\n└──────────────────────────────────────────────┘")
     elif choice == '3':
         L = float(input("Enter the length of the plate (L): "))
         W = float(input("Enter the width of the plate (W): "))
@@ -110,7 +124,7 @@ while True:
         for row in stress_array:
             for (x, y, stress) in row:
                 print(f"Position ({x:.2f}, {y:.2f}): Stress = {stress:.2f}")
-        time.sleep(2)
+        input("┌──────────────────────────────────────────────┐\n│ Press [Enter] when you are ready to continue │\n└──────────────────────────────────────────────┘")
     elif choice == '4':
         U = structural_analysis()
 
@@ -123,13 +137,15 @@ while True:
         
         print("The displacement vector U is:", U)
 
-        time.sleep(2)
+        input("┌──────────────────────────────────────────────┐\n│ Press [Enter] when you are ready to continue │\n└──────────────────────────────────────────────┘")
     elif choice == '5':
+        mean, standard_deviation, TF, MaxF, MinF, MaxC, MinC = data_analysis_temperature_measurements(TC)
 
-        time.sleep(2)
+        print(f"Mean (Celsius): {mean:.2f} \nStandard Deviation (Celsius): {standard_deviation:.2f} \nTemperatures (Fahrenheit): {TF} \nMax Temperature (Fahrenheit): {MaxF:.2f} \n Min Temperature (Fahrenheit): {MinF:.2f} \nMax Temperature (Celsius): {MaxC:.2f} \nMin Temperature (Celsius): {MinC:.2f}")
+        input("┌──────────────────────────────────────────────┐\n│ Press [Enter] when you are ready to continue │\n└──────────────────────────────────────────────┘")
     elif choice == '6':
         # Exit the program
         break
     else:
-        print("Invalid choice. Please try again.")
-        time.sleep(1)
+        print("┌──────────────────────────────────┐\n│ Invalid Choice Please Try Again  │\n└──────────────────────────────────┘")
+        time.sleep(2)
