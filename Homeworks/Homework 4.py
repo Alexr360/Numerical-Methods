@@ -12,8 +12,7 @@ def calculate_deflection(q, L, E, I):
     return deflection
 
 # Problem 2: While Loop - Convergence of a Numerical Solution
-def newtons_cooling(T0, T_inf, k):
-    Tn = T0
+def newtons_cooling(Tn, T_inf, k):
     iterations = 0
     
     while abs(Tn - T_inf) >= 0.01:
