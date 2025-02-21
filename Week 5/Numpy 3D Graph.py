@@ -25,7 +25,7 @@ ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
 
 # Set title
-ax.set_title('3D Scatter Plot Example')
+ax.set_title('3D Scatter Plot')
 
 # Show the plot
 plt.show()
