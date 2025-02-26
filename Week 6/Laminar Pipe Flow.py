@@ -25,6 +25,7 @@ input_values_list = [
 
 # Assign a different colormap to each dataset
 colormaps = ['viridis', 'plasma', 'coolwarm']
+colors = ['g', 'b', 'r']
 
 fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
@@ -33,8 +34,9 @@ ax = fig.add_subplot(111, projection='3d')
 for idx, input_values in enumerate(input_values_list):
     X, Y, U = plot_laminar_pipe_flow(*input_values)
     cmap = colormaps[idx]  # Choose a colormap
-    ax.plot_surface(X, Y, U, cmap=cmap, alpha=0.7)  # Surface plot
-    ax.plot_wireframe(X, Y, U, color='k', linewidth=0.4, alpha=0.4)  # Wireframe for contrast
+    color = colors[idx]  # Choose a color for the wireframe
+    # ax.plot_surface(X, Y, U, cmap=cmap, alpha=0.7)  # Surface plot
+    ax.plot_wireframe(X, Y, U, color=color, linewidth=0.4, alpha=0.4)  # Wireframe for contrast
 
 ax.set_xlabel('X (m)')
 ax.set_ylabel('Y (m)')
