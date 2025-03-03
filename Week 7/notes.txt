@@ -1,0 +1,6 @@
+Finding the roots
+    5x = 1 
+    2x^2 + 3x + 1 =0
+
+
+Try with
