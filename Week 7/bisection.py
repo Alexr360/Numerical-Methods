@@ -31,14 +31,14 @@ ans, iterations = bisection_method(f, 0, 2, 1e-5)
 
 # Plot the function and the points
 x = np.linspace(0, 2, 100)
-y = f(x)
 
-plt.plot(x, y, label='f(x)')
+plt.plot(x, f(x), label='f(x)')
 plt.plot(ans, f(ans), 'ro', label='Root')
 plt.xlabel('x')
 plt.ylabel('f(x)')
 plt.legend()
 plt.grid(True)
+plt.title(f"Root at ({ans}, {f(ans)})")  # Add title with coordinates
 plt.show()
 
 # Print the result
