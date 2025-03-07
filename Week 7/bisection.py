@@ -23,13 +23,13 @@ def bisection_method(f, a, b, tol, iterations=0):
         print(f"Iteration {iterations}: {m}")
         return bisection_method(f, a, m, tol, iterations + 1)
 
-# Define the function f(x) = x^2 - 2
+# Define the function f(x) = cosh(x) * cos(x) + 1
 f = lambda x: np.cosh(x) * np.cos(x) + 1
 
 # Use the bisection method to find the root of f(x) in the interval [0, 2] with a tolerance of 0.01
 ans, iterations = bisection_method(f, 0, 2, 1e-5)
 
-# Plot the function and the points
+# Plot the function and the root
 x = np.linspace(0, 2, 100)
 
 plt.plot(x, f(x), label='f(x)')
@@ -38,7 +38,7 @@ plt.xlabel('x')
 plt.ylabel('f(x)')
 plt.legend()
 plt.grid(True)
-plt.title(f"Root at ({ans}, {f(ans)})")  # Add title with coordinates
+plt.title(f"Root at (~{ans:.3f}) after {iterations} iterations.")  # Add title with root coordinates
 plt.show()
 
 # Print the result
