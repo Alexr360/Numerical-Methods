@@ -12,7 +12,7 @@ def bisection_method(f, a, b, tol, iterations=0):
 
     # Check if the absolute value of f(m) is less than the tolerance
     if np.abs(f(m)) < tol:
-        plt.plot(m, f(m), 'o', color="Red", label=f'Final Root')  # Plot the current root with inverse autumn color
+        plt.plot(m, f(m), 'x', color="Red", label=f'Final Root')  # Plot the current root with inverse autumn color
         plt.pause(0.1)  # Pause to show the plot
         plt.legend()
         return m, iterations
@@ -38,6 +38,7 @@ f = lambda x: np.cosh(x) * np.cos(x) + 1
 
 # Plot the function f(x)
 x = np.linspace(0, 2, 100)
+# plt.figure(figsize=(8, 6))
 plt.plot(x, f(x), label='f(x)')
 plt.axhline(0, color='r', linestyle='--')
 plt.xlabel('x')
