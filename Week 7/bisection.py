@@ -38,7 +38,7 @@ f = lambda x: np.cosh(x) * np.cos(x) + 1
 
 # Plot the function f(x)
 x = np.linspace(0, 2, 100)
-plt.figure(figsize=(8, 6)) #This line makes the last point not show up in the legend
+# plt.figure(figsize=(8, 6)) #This line makes the last point not show up in the legend
 plt.plot(x, f(x), label='f(x)')
 plt.axhline(0, color='r', linestyle='--')
 plt.xlabel('x')
