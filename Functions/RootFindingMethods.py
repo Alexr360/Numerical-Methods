@@ -44,5 +44,4 @@ def newton_raphson_method(f, x0, tol=1e-6, max_iter=100, h=1e-5):
             return x_new  # Convergence reached
         
         x = x_new  # Update estimate
-
-    return x  # Return best estimate
+    raise ValueError("Maximum number of iterations reached")
