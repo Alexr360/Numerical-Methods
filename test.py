@@ -1,6 +1,30 @@
 import math
 from Functions.RootFindingMethods import bisection_method, false_position_method, newton_raphson_method
 
+def test_bisection_method():
+    # Test case 1: Root of a quadratic function
+    def func1(x):
+        return x**2 - 4
+
+    root = bisection_method(func1, 0, 3)
+    assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
+
+    # Test case 2: Root of a cubic function
+    def func2(x):
+        return x**3 - x - 2
+
+    root = bisection_method(func2, 1, 2)
+    assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
+
+    # Test case 3: Root of a trigonometric function
+    def func3(x):
+        return math.cos(x) - x
+
+    root = bisection_method(func3, 0, 1)
+    assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
+
+    print("All tests passed for Bisection method.")
+
 def test_false_position_method():
     # Test case 1: Root of a quadratic function
     def func1(x):
@@ -64,30 +88,7 @@ def test_newton_raphson_method():
 
     print("All tests passed for Newton-Raphson method.")
 
-def test_bisection_method():
-    # Test case 1: Root of a quadratic function
-    def func1(x):
-        return x**2 - 4
 
-    root = bisection_method(func1, 0, 3)
-    assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
-
-    # Test case 2: Root of a cubic function
-    def func2(x):
-        return x**3 - x - 2
-
-    root = bisection_method(func2, 1, 2)
-    assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
-
-    # Test case 3: Root of a trigonometric function
-    def func3(x):
-        return math.cos(x) - x
-
-    root = bisection_method(func3, 0, 1)
-    assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
-
-    print("All tests passed for Bisection method.")
-
+test_bisection_method()
 test_false_position_method()
 test_newton_raphson_method()
-test_bisection_method()
