@@ -62,28 +62,22 @@ def test_newton_raphson_method():
     # Test case 1: Root of a quadratic function
     def func1(x):
         return x**2 - 4
-    def dfunc1(x):
-        return 2*x
 
-    root, iterations = newton_raphson_method(func1, dfunc1, 3)
+    root = newton_raphson_method(func1, 3)
     assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
 
     # Test case 2: Root of a cubic function
     def func2(x):
         return x**3 - x - 2
-    def dfunc2(x):
-        return 3*x**2 - 1
 
-    root, iterations = newton_raphson_method(func2, dfunc2, 2)
+    root = newton_raphson_method(func2, 2)
     assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
 
     # Test case 3: Root of a trigonometric function
     def func3(x):
         return math.cos(x) - x
-    def dfunc3(x):
-        return -math.sin(x) - 1
 
-    root, iterations = newton_raphson_method(func3, dfunc3, 1)
+    root = newton_raphson_method(func3, 1)
     assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
 
     print("All tests passed for Newton-Raphson method.")

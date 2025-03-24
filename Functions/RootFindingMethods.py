@@ -1,3 +1,5 @@
+import numpy as np
+
 def bisection_method(func, a, b, tol=1.0e-6, max_iter=100):
     if func(a) * func(b) >= 0:
         raise ValueError("The function must have different signs at a and b")
@@ -26,15 +28,21 @@ def false_position_method(func, a, b, tol=1.0e-6, max_iter=100):
             a = c
     raise ValueError("Maximum number of iterations reached")
 
-def newton_raphson_method(func, dfunc, x0, tol=1.0e-6, max_iter=100):
+def newton_raphson_method(f, x0, tol=1e-6, max_iter=100, h=1e-5):
+    """Newton-Raphson method with numerical differentiation using finite differences."""
     x = x0
-    for i in range(max_iter):
-        fx = func(x)
-        dfx = dfunc(x)
-        if dfx == 0:
-            raise ValueError("Derivative is zero. No solution found.")
-        x_new = x - fx / dfx
+    for _ in range(max_iter):
+        fx = f(x)
+        dfx = (f(x + h) - fx) / h  # Numerical derivative using finite difference
+        
+        if abs(dfx) < 1e-12:  # Avoid division by zero
+            raise ValueError("Numerical derivative is too small; try a different initial guess or step size.")
+        
+        x_new = x - fx / dfx  # Newton-Raphson update step
+        
         if abs(x_new - x) < tol:
-            return x_new, i + 1
-        x = x_new
-    raise ValueError("Maximum number of iterations reached")
+            return x_new  # Convergence reached
+        
+        x = x_new  # Update estimate
+
+    return x  # Return best estimate
