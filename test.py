@@ -1,40 +1,88 @@
-import sys
-import os
-import numpy as np
-from Functions.rootFunctions import *
+import math
+from Functions.RootFindingMethods import bisection_method, false_position_method, newton_raphson_method
 
-# Define the function f(x) = cosh(x) * cos(x) + 1
-f = lambda x: np.cosh(x) * np.cos(x) + 1
+def test_bisection_method():
+    # Test case 1: Root of a quadratic function
+    def func1(x):
+        return x**2 - 4
 
-# Use the bisection method to find the root of f(x) in the interval [0, 2] with a tolerance of 0.01
-bisection_ans, bisection_iterations = bisection_method(f, 0, 2, 1e-5)
+    root = bisection_method(func1, 0, 3)
+    assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
 
-# Use the roots method to find the root of f(x) in the interval [0, 2] with a tolerance of 0.01
-position_ans, position_iterations = position_method(f, 0, 2, 1e-5)
+    # Test case 2: Root of a cubic function
+    def func2(x):
+        return x**3 - x - 2
 
-# Calculate the similarity between the two roots as a percentage
-difference = 100 - (abs(bisection_ans - position_ans) / bisection_ans * 100)
+    root = bisection_method(func2, 1, 2)
+    assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
 
-# Format strings dynamically
-bisection_str = f"Bisection  Method     │ {bisection_ans} after {bisection_iterations} iterations"
-position_str = f"False Position Method │ {position_ans} after {position_iterations} iterations"
-accuracy_str = f"Accuracy: {difference:.2f}%"
+    # Test case 3: Root of a trigonometric function
+    def func3(x):
+        return math.cos(x) - x
 
-# Determine the maximum content width
-content_width = max(len(bisection_str), len(position_str), len(accuracy_str))
+    root = bisection_method(func3, 0, 1)
+    assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
 
-# Generate box borders dynamically
-horizontal_border = "─" * (content_width + 2)
-top_border = f"┌{horizontal_border}┐"
-bottom_border = f"└{horizontal_border}┘"
-divider = f"├{horizontal_border}┤"
+    print("All tests passed for Bisection method.")
 
-# Print dynamically resized box
-print(top_border)
-print(f"│ Roots Calculated:{' ' * (content_width - len(' Roots Calculated:'))}  │")
-print(divider)
-print(f"│ {bisection_str}{' ' * (content_width - len(bisection_str))} │")
-print(f"│ {position_str}{' ' * (content_width - len(position_str))} │")
-print(divider)
-print(f"│ {accuracy_str}{' ' * (content_width - len(accuracy_str))} │")
-print(bottom_border)
+def test_false_position_method():
+    # Test case 1: Root of a quadratic function
+    def func1(x):
+        return x**2 - 4
+
+    root = false_position_method(func1, 0, 3)
+    assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
+
+    # Test case 2: Root of a cubic function
+    def func2(x):
+        return x**3 - x - 2
+
+    root = false_position_method(func2, 1, 2)
+    assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
+
+    # Test case 3: Root of a trigonometric function
+    def func3(x):
+        return math.cos(x) - x
+
+    root = false_position_method(func3, 0, 1)
+    assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
+
+    # Test case 4: Function with no root in the interval
+    def func4(x):
+        return x**2 + 1
+
+    try:
+        false_position_method(func4, -1, 1)
+    except ValueError as e:
+        assert str(e) == "The function must have different signs at a and b", f"Unexpected error message: {e}"
+
+    print("All tests passed for False Position method.")
+
+def test_newton_raphson_method():
+    # Test case 1: Root of a quadratic function
+    def func1(x):
+        return x**2 - 4
+
+    root = newton_raphson_method(func1, 3)
+    assert abs(root - 2) < 1.0e-6, f"Expected root near 2, got {root}"
+
+    # Test case 2: Root of a cubic function
+    def func2(x):
+        return x**3 - x - 2
+
+    root = newton_raphson_method(func2, 2)
+    assert abs(root - 1.5213797) < 1.0e-6, f"Expected root near 1.5213797, got {root}"
+
+    # Test case 3: Root of a trigonometric function
+    def func3(x):
+        return math.cos(x) - x
+
+    root = newton_raphson_method(func3, 1)
+    assert abs(root - 0.7390851) < 1.0e-6, f"Expected root near 0.7390851, got {root}"
+
+    print("All tests passed for Newton-Raphson method.")
+
+
+test_bisection_method()
+test_false_position_method()
+test_newton_raphson_method()
