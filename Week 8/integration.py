@@ -3,42 +3,35 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-f = lambda x: np.exp(-x/4)*(2-x)-1
-g = lambda x: 1/math.sqrt(1+x)
+def f(x):
+    return np.exp(-x/4)*(2-x)-1
 
-def fixedPointIteration(x0, e, N):
-    step = 1
-    flag = 1
-    condition = True
-    x_values = [x0]  # Store x values for plotting
-    y_values = [f(x0)]  # Store f(x) values for plotting
+def g(x):
+    return 1/math.sqrt(1+x)
 
-    while condition:
-        x1 = g(x0)
-        x0 = x1
-        step = step + 1
-        if step > N:
-            flag=0
-            break
-        condition = abs(f(x1)) > e
+def fixedPointIteration(initial_guess, tolerance, max_steps):
+    x_values = [initial_guess]
+    y_values = [f(initial_guess)]
 
-        x_values.append(x1)
-        y_values.append(f(x1))
+    for step in range(1, max_steps + 1):
+        x = g(x_values[-1])
+        x_values.append(x)
+        y_values.append(f(x))
 
-        # Plot the graph
-        plt.plot(x_values, y_values, 'bo-')
-
-    if flag==1:
-        print('\nRequired root is: %0.8f' % x1)
+    if abs(f(x)) <= tolerance:
+        print(f'Required root is: {x:.8f}')
     else:
-        print('\nNot Convergent.\Last root is: %0.8f' % x1)
+        print(f'Not Convergent. Last root is: {x:.8f}')
 
-x0 = float(input('Enter Guess: '))
-e = float(input('Tolerable Error: '))
-N = int(input('Maximum Step: '))
+    return x_values, y_values
 
-fixedPointIteration(x0,e,N)
+initial_guess = float(input('Enter Guess: '))
+tolerance = float(input('Tolerable Error: '))
+max_steps = int(input('Maximum Step: '))
 
+x_values, y_values = fixedPointIteration(initial_guess, tolerance, max_steps)
+
+plt.plot(x_values, y_values, 'bo-')
 plt.xlabel('Iteration')
 plt.ylabel('f(x)')
 plt.title('Iteration vs. f(x)')
