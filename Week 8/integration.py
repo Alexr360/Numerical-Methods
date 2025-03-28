@@ -3,11 +3,8 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-def f(x):
-    return np.exp(-x/4)*(2-x)-1
-
-def g(x):
-    return 1/math.sqrt(1+x)
+f = lambda x: np.exp(-x/4)*(2-x)-1
+g = lambda x: 1/math.sqrt(1+x)
 
 def fixedPointIteration(x0, e, N):
     step = 1
@@ -34,16 +31,11 @@ def fixedPointIteration(x0, e, N):
     if flag==1:
         print('\nRequired root is: %0.8f' % x1)
     else:
-        print('\nNot Convergent.')
-        print('\nRequired root is: %0.8f' % x1)
+        print('\nNot Convergent.\Last root is: %0.8f' % x1)
 
-x0 = input('Enter Guess: ')
-e = input('Tolerable Error: ')
-N = input('Maximum Step: ')
-
-x0 = float(x0)
-e = float(e)
-N = int(N)
+x0 = float(input('Enter Guess: '))
+e = float(input('Tolerable Error: '))
+N = int(input('Maximum Step: '))
 
 fixedPointIteration(x0,e,N)
 
