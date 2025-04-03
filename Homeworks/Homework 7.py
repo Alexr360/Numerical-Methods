@@ -15,21 +15,28 @@ x_gauss_seidel = np.array([0.0, 0.0])
 # Number of iterations
 num_iterations = 3
 
-# Jacobi Iteration
-jacobi_results = []
-for _ in range(num_iterations):
-    x_new = np.zeros_like(x_jacobi)
-    x_new[0] = (b[0] - A[0, 1] * x_jacobi[1]) / A[0, 0]
-    x_new[1] = (b[1] - A[1, 0] * x_jacobi[0]) / A[1, 1]
-    x_jacobi[:] = x_new
-    jacobi_results.append(x_jacobi.copy())
+def jacobi_iteration(A, b, x_init, num_iterations):
+    x = x_init.copy()
+    results = []
+    for _ in range(num_iterations):
+        x_new = np.zeros_like(x)
+        x_new[0] = (b[0] - A[0, 1] * x[1]) / A[0, 0]
+        x_new[1] = (b[1] - A[1, 0] * x[0]) / A[1, 1]
+        x[:] = x_new
+        results.append(x.copy())
+    return results
 
-# Gauss-Seidel Iteration
-gauss_seidel_results = []
-for _ in range(num_iterations):
-    x_gauss_seidel[0] = (b[0] - A[0, 1] * x_gauss_seidel[1]) / A[0, 0]
-    x_gauss_seidel[1] = (b[1] - A[1, 0] * x_gauss_seidel[0]) / A[1, 1]
-    gauss_seidel_results.append(x_gauss_seidel.copy())
+def gauss_seidel_iteration(A, b, x_init, num_iterations):
+    x = x_init.copy()
+    results = []
+    for _ in range(num_iterations):
+        x[0] = (b[0] - A[0, 1] * x[1]) / A[0, 0]
+        x[1] = (b[1] - A[1, 0] * x[0]) / A[1, 1]
+        results.append(x.copy())
+    return results
+
+jacobi_results = jacobi_iteration(A, b, x_jacobi, num_iterations)
+gauss_seidel_results = gauss_seidel_iteration(A, b, x_gauss_seidel, num_iterations)
 
 print("Jacobi Iteration Results:")
 for i, result in enumerate(jacobi_results, start=1):
