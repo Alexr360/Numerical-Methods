@@ -3,9 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_regression():
-    """
-    Plot the data points and the quadratic regression line.
-    """
     # Define the x and y data points
     x = np.array([10, 15, 20, 25, 30, 35])
     y = np.array([2.2, 4.6, 4.2, 7, 6.6, 9.2])
