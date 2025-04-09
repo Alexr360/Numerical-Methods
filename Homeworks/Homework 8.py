@@ -15,8 +15,11 @@ coefficients = np.linalg.solve(A.T @ A, A.T @ stress)
 strain_fit = np.linspace(0, 0.007, 100)
 stress_fit = coefficients[0] + coefficients[1] * strain_fit + coefficients[2] * strain_fit**2 + coefficients[3] * strain_fit**3
 
-# Plot the original data and fitted curve
-plt.scatter(strain, stress, color='red', label='Original Data')
+# Calculate the error values
+error = stress - (coefficients[0] + coefficients[1] * strain + coefficients[2] * strain**2 + coefficients[3] * strain**3)
+
+# Plot the original data and fitted curve with error bars
+plt.errorbar(strain, stress, yerr=abs(error), fmt='o', color='red', label='Original Data')
 plt.plot(strain_fit, stress_fit, color='blue', label='Cubic Fit')
 plt.xlabel('Strain')
 plt.ylabel('Stress (MPa)')
