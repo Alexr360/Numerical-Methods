@@ -44,11 +44,11 @@ bisection_ans, bisection_iterations = 1.23, 5
 position_ans, position_iterations = 1.22, 6
 difference = 100 - (abs(bisection_ans - position_ans) / bisection_ans * 100)
 
-config = [
+data = [
     {'text': 'Roots Calculated:', 'align': 'center', 'divider': True},
     {'text': f"Bisection  Method     │ {bisection_ans} after {bisection_iterations} iterations"},
     {'text': f"False Position Method │ {position_ans} after {position_iterations} iterations", 'divider': True},
     {'text': f"Accuracy │ {difference:.2f}%", 'align': 'right'}
 ]
 
-ans_box(config)
+ans_box(data)
