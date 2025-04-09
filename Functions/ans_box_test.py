@@ -52,3 +52,5 @@ data = [
 ]
 
 ans_box(data)
+
+ans_box([{'text':'Press Enter to continue'}])
