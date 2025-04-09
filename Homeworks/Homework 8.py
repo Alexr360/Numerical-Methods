@@ -53,7 +53,7 @@ A = np.vstack([np.ones_like(strain), strain, strain**2, strain**3]).T
 coefficients = np.linalg.solve(A.T @ A, A.T @ stress)
 
 # Generate the fitted curve
-strain_fit = np.linspace(0, 0.007, 100)
+strain_fit = np.linspace(min(strain), max(strain), 100)
 stress_fit = coefficients[0] + coefficients[1] * strain_fit + coefficients[2] * strain_fit**2 + coefficients[3] * strain_fit**3
 
 # Calculate the error values
