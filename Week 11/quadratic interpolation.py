@@ -18,12 +18,14 @@ def quadratic_interpolation(x, x_values, y_values):
         raise ValueError("At least three data points are required for quadratic interpolation.")
     
     if x <= x_values[0]:
-        return y_values[0]
+        return y_values[0]  # If x is less than or equal to the first x value, return the corresponding y value
     if x >= x_values[n-1]:
-        return y_values[n-1]
+        return y_values[n-1]  # If x is greater than or equal to the last x value, return the corresponding y value
     
     for i in range(1, n-1):
         if x <= x_values[i]:
+            # Calculate the interpolation parameter t
             t = (x - x_values[i-1]) / (x_values[i] - x_values[i-1])
             t2 = t * t
+            # Perform quadratic interpolation using the formula
             return y_values[i-1] * (2*t2 - 3*t + 1) + y_values[i] * (-4*t2 + 4*t) + y_values[i+1] * (2*t2 - t)
