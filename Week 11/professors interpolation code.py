@@ -10,7 +10,7 @@ for i in range(len(x)):
     Li = 1
     for j in range(len(x)):
         if i != j:
-            Li = Li * (xinterp - x[j]) / (x[i] - x[j])
+            Li *= (xinterp - x[j]) / (x[i] - x[j])
     yinterp += Li * y[i]
 
 plt.plot(x, y, 'o', label='Data Points')
