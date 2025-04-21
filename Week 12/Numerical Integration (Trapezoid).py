@@ -1,9 +1,12 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
+import matplotlib.pyplot as plt
+
+# Define the function f(x)
 def f(x):
     return 2*x**3 - 5*x**2 + 3*x + 1
 
+# Generate x and y values for plotting
 x = np.linspace(0, 2, 50)
 y = f(x)
 
@@ -21,6 +24,7 @@ area = trapezoid_rule(f, 0, 2, n)
 
 print(area)
 
+# Plot the function and the area under the curve
 plt.plot(x, y)
 plt.fill_between(x, y, where=(x >= 0) & (x <= 2), color='gray', alpha=0.5)
 plt.xlabel('x')
