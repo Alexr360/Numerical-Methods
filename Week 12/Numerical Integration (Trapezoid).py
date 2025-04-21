@@ -19,6 +19,8 @@ def trapezoid_rule(f, a, b, n):
 n = 50  # Number of subintervals
 area = trapezoid_rule(f, 0, 2, n)
 
+print(area)
+
 plt.plot(x, y)
 plt.fill_between(x, y, where=(x >= 0) & (x <= 2), color='gray', alpha=0.5)
 plt.xlabel('x')
