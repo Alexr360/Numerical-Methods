@@ -1,6 +1,47 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+def ans_box(config):
+    if not config or not isinstance(config, list):
+        return
+    
+    # Extract content from config
+    content = [line['text'] for line in config]
+    
+    # Calculate maximum content width
+    content_width = max(len(line) for line in content)
+    
+    # Create dynamic borders
+    horizontal_border = "─" * (content_width + 2)
+    top_border = f"┌{horizontal_border}┐"
+    bottom_border = f"└{horizontal_border}┘"
+    divider = f"├{horizontal_border}┤"
+    
+    # Print the box
+    print(top_border)
+    for i, line in enumerate(config):
+        text = line['text']
+        align = line.get('align', 'left')
+        
+        # Handle alignment
+        if align == 'center':
+            padding_left = (content_width - len(text)) // 2
+            padding_right = content_width - len(text) - padding_left
+        elif align == 'right':
+            padding_left = content_width - len(text)
+            padding_right = 0
+        else:
+            padding_left = 0
+            padding_right = content_width - len(text)
+        
+        # Print the line with padding
+        print(f"│ {' ' * padding_left}{text}{' ' * padding_right} │")
+        
+        # Handle dividers based on config
+        if line.get('divider', False):
+            print(divider)
+    print(bottom_border)
+
 def interpolate(x_query, data_points):
     x = [point[0] for point in data_points]
     y = [point[1] for point in data_points]
@@ -33,14 +74,16 @@ def ai_lagrange(x_query, data_pts):
         result += term
     return result
 
-# Data
 data = [(5,0.8), (10,1.6), (15,3.1), (20,4.5)]
 
-# Compute θ(12)
 theta_12_manual = interpolate(12, data)
-print(f"In Class θ(12) = {theta_12_manual:.4f}°")
 
-# Prepare data and compute
 theta_12_ai = ai_lagrange(12, data)
-print(f"AI Gen θ(12)   = {theta_12_ai:.4f}°")
 
+ans = [
+    {'text': 'Final Answers', 'align': 'center', 'divider': True},
+    {'text': f"In Class θ(12) | {theta_12_manual:.4f}°", 'align': 'center'},
+    {'text': f"AI Gen θ(12)   | {theta_12_ai:.4f}°", 'align': 'center'}
+]
+
+ans_box(ans)
