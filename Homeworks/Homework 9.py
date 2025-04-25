@@ -42,6 +42,7 @@ def ans_box(config):
             print(divider)
     print(bottom_border)
 
+# Function to perform Lagrange interpolation
 def interpolate(x_query, data_points):
     x = [point[0] for point in data_points]
     y = [point[1] for point in data_points]
@@ -58,6 +59,7 @@ def interpolate(x_query, data_points):
 
     return yinterp
 
+# Function to perform AI-assisted Lagrange interpolation
 def ai_lagrange(x_query, data_pts):
     """
     AI-assisted version, created using Chat-GPT 04-mini-high: expects data_pts as list of (x, y) tuples.
@@ -74,16 +76,18 @@ def ai_lagrange(x_query, data_pts):
         result += term
     return result
 
+# Data points for interpolation
 data = [(5,0.8), (10,1.6), (15,3.1), (20,4.5)]
 
-theta_12_manual = interpolate(12, data)
+# Perform manual interpolation
+ans_manual = interpolate(12, data)
 
-theta_12_ai = ai_lagrange(12, data)
+# Perform AI-assisted interpolation
+ans_ai = ai_lagrange(12, data)
 
-ans = [
+# Print the answers in a formatted box
+ans_box([
     {'text': 'Final Answers', 'align': 'center', 'divider': True},
-    {'text': f"In Class θ(12) | {theta_12_manual:.4f}°", 'align': 'center'},
-    {'text': f"AI Gen θ(12)   | {theta_12_ai:.4f}°", 'align': 'center'}
-]
-
-ans_box(ans)
+    {'text': f"In Class θ(12) | {ans_manual:.4f}°", 'align': 'center'},
+    {'text': f"AI Gen θ(12)   | {ans_ai:.4f}°", 'align': 'center'}
+])
