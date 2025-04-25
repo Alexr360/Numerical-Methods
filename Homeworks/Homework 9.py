@@ -46,9 +46,7 @@ def ans_box(config):
 def interpolate(xinterp, data_points):
     x = [point[0] for point in data_points]
     y = [point[1] for point in data_points]
-
     yinterp = 0
-
     for i in range(len(x)):
         Li = 1
         for j in range(len(x)):
@@ -59,34 +57,41 @@ def interpolate(xinterp, data_points):
     return yinterp
 
 # Function to perform AI-assisted Lagrange interpolation
-def ai_lagrange(x_query, data_pts):
+def lagrange_interpolation(x, y, x0):
     """
-    AI-assisted version, created using Chat-GPT 04-mini-high: expects data_pts as list of (x, y) tuples.
+    Compute the Lagrange interpolation polynomial at x0
+    given data points (x, y).
     """
-    result = 0.0
-    n = len(data_pts)
+    x = np.array(x)
+    y = np.array(y)
+    n = len(x)
+    total = 0.0
     for i in range(n):
-        xi, yi = data_pts[i]
-        term = yi
+        term = y[i]
         for j in range(n):
             if j != i:
-                xj, _ = data_pts[j]
-                term *= (x_query - xj) / (xi - xj)
-        result += term
-    return result
+                term *= (x0 - x[j]) / (x[i] - x[j])
+        total += term
+    return total
 
 # Data points for interpolation
+T = [5, 10, 15, 20]              # Torque in N·m
+theta = [0.8, 1.6, 3.1, 4.5]     # Angle of twist in degrees
 data = [(5,0.8), (10,1.6), (15,3.1), (20,4.5)]
 
 # Perform manual interpolation
 ans_manual = interpolate(12, data)
 
 # Perform AI-assisted interpolation
-ans_ai = ai_lagrange(12, data)
+ans_ai = lagrange_interpolation(T, theta, 12)
+
+# Calculate the difference
+difference = (ans_manual - ans_ai) / ans_manual * 100
 
 # Print the answers in a formatted box
 ans_box([
     {'text': 'Final Answers', 'align': 'center', 'divider': True},
     {'text': f"In Class θ(12) | {ans_manual:.4f}°", 'align': 'center'},
-    {'text': f"AI Gen θ(12)   | {ans_ai:.4f}°", 'align': 'center'}
+    {'text': f"AI Gen θ(12)   | {ans_ai:.4f}°", 'align': 'center', 'divider': True},
+    {'text': f"Percent Difference | {difference}", 'align': 'center'}
 ])
