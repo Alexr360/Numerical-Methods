@@ -43,11 +43,10 @@ def ans_box(config):
     print(bottom_border)
 
 # Function to perform Lagrange interpolation
-def interpolate(x_query, data_points):
+def interpolate(xinterp, data_points):
     x = [point[0] for point in data_points]
     y = [point[1] for point in data_points]
 
-    xinterp = x_query
     yinterp = 0
 
     for i in range(len(x)):
