@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 # Define the function f(x)
 def f(x):
     return 2*x**3 - 5*x**2 + 3*x + 1
+    
+# Calculate the exact differential
+exact_diff = 6*x**2 - 10*x + 3
 
 a = 0
 b = 2
@@ -22,8 +25,6 @@ backward_diff = (f(x) - f(x - h)) / h
 # Calculate central difference approximation
 central_diff = (f(x + h) - f(x - h)) / (2 * h)
 
-# Calculate the exact differential
-exact_diff = 6*x**2 - 10*x + 3
 
 # Print the difference approximations
 print("Forward Difference: ", forward_diff)
