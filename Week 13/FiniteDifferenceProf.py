@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 def f(x):
     return 2*x**3 - 5*x**2 + 3*x + 1
     
-# Calculate the exact differential
-exact_diff = 6*x**2 - 10*x + 3
 
 a = 0
 b = 2
@@ -15,6 +13,9 @@ n = 50
 
 x = np.linspace(a, b, n)
 h = (b - a) / n
+
+# Calculate the exact differential
+exact_diff = 6*x**2 - 10*x + 3
 
 # Calculate forward difference approximation
 forward_diff = (f(x + h) - f(x)) / h
