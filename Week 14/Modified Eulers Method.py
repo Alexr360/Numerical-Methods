@@ -1,12 +1,11 @@
 import numpy as np
-
 import matplotlib.pyplot as plt
 
 def f(t, y):
     """Right-hand side of the ODE dy/dt = 6 t^2 - 10 t + 3."""
     return 6 * t**2 - 10 * t + 3
 
-def modified_eulers_method(f, x0, y0, h, n):
+def modified_eulers_method(f, x0, y0, h, t_end):
     """
     Solves an ODE using modified Euler's method.
 
@@ -15,7 +14,7 @@ def modified_eulers_method(f, x0, y0, h, n):
         x0: Initial value of x
         y0: Initial value of y
         h: Step size
-        n: Number of steps
+        t_end: End time
 
     Returns:
         t_values: List of time values
@@ -23,9 +22,9 @@ def modified_eulers_method(f, x0, y0, h, n):
     """
     t_values = [x0]
     y_values = [y0]
-    t, x, y = x0, x0, y0
+    t, y = x0, y0
 
-    for i in range(n):
+    while t < t_end:
         k1 = h * f(t, y)
         k2 = h * f(t + h, y + k1)
         y = y + 0.5 * (k1 + k2)
@@ -35,16 +34,14 @@ def modified_eulers_method(f, x0, y0, h, n):
 
     return t_values, y_values
 
-
 # Initial conditions
 y0 = 1
 t0 = 0
 t_end = 5
 h = 0.001
-n = int((t_end - t0) / h)
 
 # Solve the ODE using modified Euler's method
-t_values, y_values = modified_eulers_method(f, t0, y0, h, n)
+t_values, y_values = modified_eulers_method(f, t0, y0, h, t_end)
 
 # Print results
 for t, y in zip(t_values, y_values):
