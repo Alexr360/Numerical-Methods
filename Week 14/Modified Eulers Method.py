@@ -5,7 +5,7 @@ def f(t, y):
     """Right-hand side of the ODE dy/dt = 6 t^2 - 10 t + 3."""
     return 6 * t**2 - 10 * t + 3
 
-def modified_eulers_method(f, x0, y0, h, t_end):
+def modified_eulers_method(f, x0, y0, t_end, h):
     """
     Solves an ODE using modified Euler's method.
 
@@ -13,8 +13,8 @@ def modified_eulers_method(f, x0, y0, h, t_end):
         f: Function representing dy/dt = f(t, y)
         x0: Initial value of x
         y0: Initial value of y
-        h: Step size
         t_end: End time
+        h: Step size
 
     Returns:
         t_values: List of time values
@@ -41,7 +41,7 @@ t_end = 5
 h = 0.001
 
 # Solve the ODE using modified Euler's method
-t_values, y_values = modified_eulers_method(f, t0, y0, h, t_end)
+t_values, y_values = modified_eulers_method(f, t0, y0, t_end, h)
 
 # Print results
 for t, y in zip(t_values, y_values):
