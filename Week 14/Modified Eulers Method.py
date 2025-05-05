@@ -8,52 +8,43 @@ def f(t, y):
 
 def modified_eulers_method(f, x0, y0, h, n):
     """
-    Solve an ordinary differential equation using the modified Euler's method.
+    Solves an ODE using modified Euler's method.
 
     Parameters:
-    f: function
-        The function defining the ODE dy/dx = f(x, y).
-    x0: float
-        The initial x value.
-    y0: float
-        The initial y value.
-    h: float
-        The step size.
-    n: int
-        The number of steps to take.
+        f: Function representing dy/dt = f(t, y)
+        x0: Initial value of x
+        y0: Initial value of y
+        h: Step size
+        n: Number of steps
 
     Returns:
-    x: list
-        The x values.
-    y: list
-        The corresponding y values.
+        t_values: List of time values
+        y_values: List of y values
     """
-    x = [x0]
-    y = [y0]
+    t_values = [x0]
+    y_values = [y0]
+    t, x, y = x0, x0, y0
 
     for i in range(n):
-        xi = x[i]
-        yi = y[i]
+        k1 = h * f(t, y)
+        k2 = h * f(t + h, y + k1)
+        y = y + 0.5 * (k1 + k2)
+        t = t + h
+        t_values.append(t)
+        y_values.append(y)
 
-        k1 = h * f(xi, yi)
-        k2 = h * f(xi + h/2, yi + k1/2)
+    return t_values, y_values
 
-        xi1 = xi + h
-        yi1 = yi + k2
-
-        x.append(xi1)
-        y.append(yi1)
-
-    return x, y
 
 # Initial conditions
 y0 = 1
 t0 = 0
 t_end = 5
 h = 0.001
+n = int((t_end - t0) / h)
 
 # Solve the ODE using modified Euler's method
-t_values, y_values = modified_eulers_method(f, t0, y0, h, int((t_end - t0) / h))
+t_values, y_values = modified_eulers_method(f, t0, y0, h, n)
 
 # Print results
 for t, y in zip(t_values, y_values):
