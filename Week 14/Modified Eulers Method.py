@@ -38,7 +38,7 @@ def modified_eulers_method(f, x0, y0, t_end, h):
 y0 = 1
 t0 = 0
 t_end = 5
-h = 0.001
+h = 0.1
 
 # Solve the ODE using modified Euler's method
 t_values, y_values = modified_eulers_method(f, t0, y0, t_end, h)
