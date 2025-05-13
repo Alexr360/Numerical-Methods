@@ -1,25 +1,23 @@
 def jacobi(A, b, x0=None, tol=1e-10, max_iterations=1000):
     n = len(A)
-    # Initialize x to zeros if no initial guess is provided
+    # Initialize solution
     x = x0[:] if x0 is not None else [0.0 for _ in range(n)]
-    x_new = [0.0 for _ in range(n)]
 
     for iteration in range(1, max_iterations + 1):
+        x_new = x[:]
         for i in range(n):
             # Sum of A[i][j] * x[j] for j != i
             sum_ax = sum(A[i][j] * x[j] for j in range(n) if j != i)
             # Update rule: (b[i] - sum_ax) / A[i][i]
             x_new[i] = (b[i] - sum_ax) / A[i][i]
 
-        # Compute the infinity norm of the difference
-        diff = max(abs(x_new[i] - x[i]) for i in range(n))
         # Check for convergence
+        diff = max(abs(x_new[i] - x[i]) for i in range(n))
         if diff < tol:
             print(f"Converged in {iteration} iterations.")
             return x_new
 
-        # Prepare for next iteration
-        x[:] = x_new[:]
+        x = x_new
 
     print("Warning: Maximum iterations reached without convergence.")
     return x_new
