@@ -36,6 +36,5 @@ if __name__ == "__main__":
     ]
     b = [7.0, -8.0, 6.0]
 
-    # Call Jacobi solver
-    solution = jacobi(A, b, tol=1e-12, max_iterations=500)
-    print("Solution:", solution)
+    solution = jacobi(A, b)
+    print(f"Solution: {solution}")
