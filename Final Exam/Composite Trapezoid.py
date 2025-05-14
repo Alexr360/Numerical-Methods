@@ -36,6 +36,13 @@ def composite_trapezoid(f, a, b, n):
 # Example usage
 if __name__ == "__main__":
     # Integrate sin(x) from 0 to pi
-    result = composite_trapezoid(math.sin, 0, math.pi, 10000)
-    print(f"Approximate integral of sin(x) from 0 to pi ≈ {result:.6f}")
+    def f(x):
+        return math.sin(x)
+
+    a = 0.0      # lower limit
+    b = math.pi  # upper limit
+    n = 100      # must be even
+
+    result = composite_trapezoid(f, a, b, n)
+    print(f"Approximate integral of sin(x) from {a} to {b} with n={n}: {result:.6f}")
     # True value is 2.0
