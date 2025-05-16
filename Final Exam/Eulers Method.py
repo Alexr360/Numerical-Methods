@@ -17,7 +17,7 @@ def euler(f, x0, y0, h, n):
     ys = [y0]
     x, y = x0, y0
 
-    for i in range(n):
+    for _ in range(n):
         y = y + h * f(x, y)   # Euler update
         x = x + h
         xs.append(x)
